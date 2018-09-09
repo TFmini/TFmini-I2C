@@ -1,3 +1,7 @@
+#user 
+TFmini-I2C-MasterExample/Drivers
+TFmini-I2C-MasterExample/MDK-ARM/RTE
+TFmini-I2C-MasterExample/MDK-ARM/TFmini-I2C-MasterExample
 # Prerequisites
 *.d
 
@@ -50,3 +54,11 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+*.icf
+TFmini-I2C-MasterExample/.mxproject
+TFmini-I2C-MasterExample/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f100xb.h
+TFmini-I2C-MasterExample/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f100xe.h
+TFmini-I2C-MasterExample/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h
+TFmini-I2C-MasterExample/Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h
+TFmini-I2C-MasterExample/MDK-ARM/startup_stm32f103xb.lst
+TFmini-I2C-MasterExample/MDK-ARM/TFmini-I2C-MasterExample.uvguix.Cherry Goh
