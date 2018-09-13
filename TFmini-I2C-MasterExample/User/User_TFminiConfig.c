@@ -202,7 +202,7 @@ void User_TFmini_ReadAllConfig(uint8_t slaveAddr)
 		printf("Err: Read Inttime and mode, status=%d\r\n", status);
 		return;
 	}
-	printf("Inttime = %d, Mode=%d\r\n", rxbuf[0], rxbuf[1]);
+	printf("\r\nInttime = %d, Mode=%d\r\n", rxbuf[0], rxbuf[1]);
 	
 	status = User_I2C_ReadFromSlave(slaveAddr, TFmini_RangeModeAndValue_RegAddr, TFmini_RangeModeAndValue_Bytes, rxbuf);
 	if(status != HAL_OK)

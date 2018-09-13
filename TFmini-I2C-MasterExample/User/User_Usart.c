@@ -54,15 +54,9 @@ Others: None
 *************************************************/
 void User_Usart1_Init(void)
 {
-	if(HAL_UART_Receive_DMA(&huart1, (uint8_t *)g_Usart1_RxBuffer, USART_BUF_SIZE) == HAL_OK)
-	{
-		__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
-	}
-	else
-	{
-		printf("Err: User_Usart1_Init.\r\n");
-		fail();
-	}
+	HAL_UART_Receive_DMA(&huart1, (uint8_t *)g_Usart1_RxBuffer, USART_BUF_SIZE);
+	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+	__HAL_UART_ENABLE(&huart1);
 }
 
 
@@ -77,7 +71,6 @@ Others: None
  void HAL_UART_IDLECallback(UART_HandleTypeDef *huart)
 {
 	uint32_t clearStatus = 0;
-
 	// huart1 is the COM Port For PC
 	if((__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET))
 	{

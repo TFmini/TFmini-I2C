@@ -119,7 +119,7 @@ static COM_StatusTypeDef User_CommandFormatVerify(__IO uint8_t *rxbuf)
 			}
 			
 			// Check Inttime Range
-			if((rxbuf[4]!=0x00) || (rxbuf[4]!=0x03)||(rxbuf[4]!=0x07))
+			if((rxbuf[4]!=0x00) && (rxbuf[4]!=0x03) && (rxbuf[4]!=0x07))
 			{
 				return COM_PARAS_ERROR;
 			}
@@ -205,7 +205,7 @@ static COM_StatusTypeDef User_CommandFormatVerify(__IO uint8_t *rxbuf)
 			}
 			
 			// Check Config Range
-			if(rxbuf[3] != 0x02)
+			if(rxbuf[4] != 0x02)
 			{
 				return COM_PARAS_ERROR;
 			}
@@ -219,7 +219,7 @@ static COM_StatusTypeDef User_CommandFormatVerify(__IO uint8_t *rxbuf)
 				chk += rxbuf[i];
 			}
 			
-			if(rxbuf[5] != chk)
+			if(rxbuf[4] != chk)
 			{
 				return COM_FORMAT_ERROR;
 			}
@@ -230,6 +230,7 @@ static COM_StatusTypeDef User_CommandFormatVerify(__IO uint8_t *rxbuf)
 				return COM_PARAS_ERROR;
 			}
 		}
+		break;
 		default:
 		{
 			return COM_FORMAT_ERROR;

@@ -44,7 +44,8 @@
 #include "dma.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "string.h"
+#include "stdio.h"
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;

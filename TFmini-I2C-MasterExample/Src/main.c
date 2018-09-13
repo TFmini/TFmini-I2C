@@ -50,6 +50,7 @@
 #include "User_Timer.h"
 #include "User_I2C.h"
 #include "User_Command.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -79,7 +80,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -95,7 +96,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+	HAL_Delay(100);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -106,6 +107,8 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 	User_Usart1_Init();
+	User_I2C_ResetBus();
+	printf("Copyright (C), 2017 Benewake(Beijing) Co, Ltd. All Rright Reserved.\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -114,6 +117,7 @@ int main(void)
   {
 
   /* USER CODE END WHILE */
+
 	User_IsUsartCommandExist();
 	User_IsControlFlagExist();
   /* USER CODE BEGIN 3 */

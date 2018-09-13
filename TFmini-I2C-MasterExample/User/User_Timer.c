@@ -38,6 +38,8 @@ void User_Timer1_Init(void)
 {
 	__HAL_TIM_ENABLE(&htim1);
 	__HAL_TIM_ENABLE_IT(&htim1, TIM_IT_UPDATE);
+	HAL_TIM_Base_Start_IT(&htim1);
+
 }
 
 /*************************************************
@@ -52,6 +54,7 @@ void User_Timer1_Disable(void)
 {
 	__HAL_TIM_DISABLE(&htim1);
 	__HAL_TIM_DISABLE_IT(&htim1, TIM_IT_UPDATE);
+	HAL_TIM_Base_Stop_IT(&htim1);
 }
 
 /*************************************************
@@ -80,7 +83,7 @@ Others: None
 void User_ConfigTrigMessage(uint8_t on_off, uint8_t SlaveNum, uint8_t *slaveAddrBuf)
 {
 	uint8_t i = 0;
-	
+	printf("On/OFF=%d,SlaveNum=%d\r\n", on_off, SlaveNum);
 	if(on_off != 0x00)
 	{
 		TFminiStruct.SlaveNum = SlaveNum;
@@ -156,10 +159,7 @@ Others: None
 *************************************************/
  void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if(__HAL_TIM_GET_FLAG(&htim1, TIM_FLAG_UPDATE) != RESET)
-	{
-		TFminiStruct.ControlFlag = 0x01;
-	}
+	TFminiStruct.ControlFlag = 0x01;
 }
 
 
