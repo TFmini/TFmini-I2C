@@ -1,7 +1,12 @@
 #user 
-TFmini-I2C-MasterExample/Drivers
+TFmini-I2C-MasterExample/Drivers/CMSIS/DSP_Lib
 TFmini-I2C-MasterExample/MDK-ARM/RTE
-TFmini-I2C-MasterExample/MDK-ARM/TFmini-I2C-MasterExample
+TFmini-I2C-MasterExample/MDK-ARM/STM32_I2CMasterForTFmini
+TFmini-I2C-MasterExample/Drivers/STM32F1xx_HAL_Driver
+TFmini-I2C-MasterExample/Drivers/CMSIS/Lib
+TFmini-I2C-MasterExample/Drivers/CMSIS/RTOS
+TFmini-I2C-MasterExample/Drivers/CMSIS/Device/ST/STM32F1xx/Source
+
 # Prerequisites
 *.d
 

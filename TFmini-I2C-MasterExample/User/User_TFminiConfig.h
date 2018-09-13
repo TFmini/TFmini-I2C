@@ -1,5 +1,5 @@
-#ifndef User_TFminiControl_H
-#define User_TFminiControl_H
+#ifndef User_TFminiConfig_H
+#define User_TFminiConfig_H
 
 #include "stm32f1xx.h"
 
@@ -99,7 +99,6 @@ TFmini_StatusTypeDef User_TFmini_ConfigUnit(uint8_t slaveAddr, uint8_t Unit);
 Function: User_TFmini_ConfigDefault
 Description: Config TFmini Unit
 Input:  slaveAddr - tfmini I2C slave address
-		Unit 
 Output: None
 Return: the status of User_TFmini_ConfigUnit
 Others: None
@@ -107,7 +106,15 @@ Others: None
 TFmini_StatusTypeDef User_TFmini_ConfigDefault(uint8_t slaveAddr);
 
 
-
+/*************************************************
+Function: User_TFmini_ReadAllConfig
+Description: Read All Config
+Input:  slaveAddr - tfmini I2C slave address
+Output: None
+Return: None
+Others: Config message
+*************************************************/
+void User_TFmini_ReadAllConfig(uint8_t slaveAddr);
 
 
 #endif

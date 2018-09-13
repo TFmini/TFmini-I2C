@@ -19,6 +19,9 @@ History:
 #include "stm32f1xx.h"
 #include "User_Timer.h"
 #include "tim.h"
+#include "User_TFminiConfig.h"
+
+struct TFminiControl TFminiStruct;
 
 extern TIM_HandleTypeDef htim1;
 
@@ -64,7 +67,85 @@ void User_Timer1_Enable(void)
 	User_Timer1_Init();
 }
 
+/*************************************************
+Function: User_ConfigTrigMessage
+Description: Config Timer and TFminiStruct
+Input:  on_off
+		SlaveNum
+		slaveAddrBuf - ptr to slave Address buffer
+Output: None
+Return: None
+Others: None
+*************************************************/
+void User_ConfigTrigMessage(uint8_t on_off, uint8_t SlaveNum, uint8_t *slaveAddrBuf)
+{
+	uint8_t i = 0;
+	
+	if(on_off != 0x00)
+	{
+		TFminiStruct.SlaveNum = SlaveNum;
+		for(i = 0; i < TFminiStruct.SlaveNum; i++)
+		{
+			TFminiStruct.SlaveAddr[i] = slaveAddrBuf[i];
+		}
+		User_Timer1_Enable();
+	}
+	else
+	{
+		User_Timer1_Disable();
+	}
+}
 
+/*************************************************
+Function: User_GetTFminiMeas
+Description: Get TFmini Measure data
+Input:  SlaveNum
+		slaveAddrBuf - ptr to slave Address buffer
+Output: None
+Return: None
+Others: None
+*************************************************/
+static void User_GetTFminiMeas(uint8_t SlaveNum, uint8_t *slaveAddrBuf)
+{
+	uint8_t i = 0;
+	uint8_t rxbuf[7] = {0};
+	TFmini_StatusTypeDef status;
+	
+	for(i = 0; i < SlaveNum; i++)
+	{
+		status = User_TFmini_GetDistInformation(slaveAddrBuf[i], rxbuf);
+		printf("Slave 0x%2x: ", slaveAddrBuf[i]);
+		if(status != TFmini_OK)
+		{
+			printf("Error. ");
+		}
+		else
+		{
+			printf("Dist[%5d], ", rxbuf[2] | (rxbuf[3] << 8));
+			printf("Strength[%5d], ", rxbuf[4] | (rxbuf[5] << 8));
+			printf("Mode[%d]. ", rxbuf[6]);
+		}
+	}
+	printf("\r\n");
+}
+
+
+/*************************************************
+Function: User_IsUsartCommandExist
+Description: 
+Input:  
+Output: None
+Return: None
+Others: None
+*************************************************/
+void User_IsControlFlagExist(void)
+{
+	if(TFminiStruct.ControlFlag != 0)
+	{
+		User_GetTFminiMeas(TFminiStruct.SlaveNum, TFminiStruct.SlaveAddr);
+		TFminiStruct.ControlFlag = 0;
+	}
+}
 /*************************************************
 Function: HAL_TIM_PeriodElapsedCallback
 Description: HAL_TIM_PeriodElapsedCallback
@@ -77,7 +158,7 @@ Others: None
 {
 	if(__HAL_TIM_GET_FLAG(&htim1, TIM_FLAG_UPDATE) != RESET)
 	{
-		
+		TFminiStruct.ControlFlag = 0x01;
 	}
 }
 

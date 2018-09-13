@@ -1,16 +1,14 @@
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
+  * @file    system_stm32f10x.h
+  * @author  MCD Application Team
+  * @version V4.2.0
+  * @date    31-March-2017
+  * @brief   CMSIS Cortex-M3 Device Peripheral Access Layer System Header File.
   ******************************************************************************
-  ** This notice applies to any and all portions of this file
-  * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
-  * inserted by the user or by software development tools
-  * are owned by their respective copyright owners.
+  * @attention
   *
-  * COPYRIGHT(c) 2018 STMicroelectronics
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -37,39 +35,82 @@
   ******************************************************************************
   */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H__
-#define __MAIN_H__
-
-/* Includes ------------------------------------------------------------------*/
-
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
-/* Private define ------------------------------------------------------------*/
-
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
+/** @addtogroup CMSIS
+  * @{
   */
-/* #define USE_FULL_ASSERT    1U */
 
-/* USER CODE BEGIN Private defines */
-
-/* USER CODE END Private defines */
+/** @addtogroup stm32f10x_system
+  * @{
+  */  
+  
+/**
+  * @brief Define to prevent recursive inclusion
+  */
+#ifndef __SYSTEM_STM32F10X_H
+#define __SYSTEM_STM32F10X_H
 
 #ifdef __cplusplus
  extern "C" {
-#endif
-void _Error_Handler(char *, int);
+#endif 
 
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+/** @addtogroup STM32F10x_System_Includes
+  * @{
+  */
+
+/**
+  * @}
+  */
+
+
+/** @addtogroup STM32F10x_System_Exported_types
+  * @{
+  */
+
+extern uint32_t SystemCoreClock;          /*!< System Clock Frequency (Core Clock) */
+extern const uint8_t  AHBPrescTable[16U];  /*!< AHB prescalers table values */
+extern const uint8_t  APBPrescTable[8U];   /*!< APB prescalers table values */
+
+/**
+  * @}
+  */
+
+/** @addtogroup STM32F10x_System_Exported_Constants
+  * @{
+  */
+
+/**
+  * @}
+  */
+
+/** @addtogroup STM32F10x_System_Exported_Macros
+  * @{
+  */
+
+/**
+  * @}
+  */
+
+/** @addtogroup STM32F10x_System_Exported_Functions
+  * @{
+  */
+  
+extern void SystemInit(void);
+extern void SystemCoreClockUpdate(void);
+/**
+  * @}
+  */
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __MAIN_H__ */
+#endif /*__SYSTEM_STM32F10X_H */
 
+/**
+  * @}
+  */
+  
+/**
+  * @}
+  */  
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -46,7 +46,10 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "User_Usart.h"
+#include "User_Timer.h"
+#include "User_I2C.h"
+#include "User_Command.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -102,8 +105,7 @@ int main(void)
   MX_TIM1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
-
+	User_Usart1_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -112,7 +114,8 @@ int main(void)
   {
 
   /* USER CODE END WHILE */
-
+	User_IsUsartCommandExist();
+	User_IsControlFlagExist();
   /* USER CODE BEGIN 3 */
 
   }

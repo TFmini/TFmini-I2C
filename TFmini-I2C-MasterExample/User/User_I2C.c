@@ -14,7 +14,6 @@ Function List:
 History: 
 	V1.0 2018-9-12 wuxiuhua Create C file
 *************************************************/
-#include "stm32f1xx_hal_i2c.h"
 #include "User_I2C.h"
 #include "i2c.h"
 
@@ -1007,44 +1006,40 @@ static HAL_StatusTypeDef User_I2C_Master_DummyWrite(I2C_HandleTypeDef *hi2c, uin
 /*************************************************
 Function: User_I2C_GeneralPurposeOutput_Init
 Description: Set I2C1 IO as General Purpose Output
-Input:  i2cHandle - ptr to I2C
+Input:  None
 Output: None
 Return: None
 Others: None
 *************************************************/
-static void User_I2C_GeneralPurposeOutput_Init(I2C_HandleTypeDef* i2cHandle)
+static void User_I2C_GeneralPurposeOutput_Init(void)
 {
 
 	GPIO_InitTypeDef GPIO_InitStruct;
-	if(i2cHandle == &USER_I2C)
-	{
-		GPIO_InitStruct.Pin = USER_I2C_SCL_Pin|USER_I2C_SDA_Pin;
-		GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
-		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-		HAL_GPIO_Init(USER_I2C_GPIO, &GPIO_InitStruct);
-	}
+
+	GPIO_InitStruct.Pin = USER_I2C_SCL_Pin|USER_I2C_SDA_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+	HAL_GPIO_Init(USER_I2C_GPIO, &GPIO_InitStruct);
 }
 
 
 /*************************************************
 Function: User_I2C_AlternateFunction_Init
 Description: Set I2C IO as Alternate Function Output
-Input:  i2cHandle - ptr to I2C
+Input:  None
 Output: None
 Return: None
 Others: None
 ************************************************/
-static void User_I2C_AlternateFunction_Init(I2C_HandleTypeDef* i2cHandle)
+static void User_I2C_AlternateFunction_Init(void)
 {
 
 	GPIO_InitTypeDef GPIO_InitStruct;
-	if(i2cHandle == &USER_I2C)
-	{
-		GPIO_InitStruct.Pin = USER_I2C_SCL_Pin|USER_I2C_SDA_Pin;
-		GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-		HAL_GPIO_Init(USER_I2C_GPIO, &GPIO_InitStruct);
-	}
+
+	GPIO_InitStruct.Pin = USER_I2C_SCL_Pin|USER_I2C_SDA_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+	HAL_GPIO_Init(USER_I2C_GPIO, &GPIO_InitStruct);
 }
 
 
@@ -1063,7 +1058,7 @@ HAL_StatusTypeDef User_I2C_ResetBus(void)
 	HAL_GPIO_DeInit(USER_I2C_GPIO, USER_I2C_SCL_Pin|USER_I2C_SDA_Pin);
 	
 	/* 2. Configure the SCL and SDA I/Os as General Purpose Output Open-Drain, High level (Write 1 to GPIOx_ODR) */
-	User_I2C_GeneralPurposeOutput_Init(&USER_I2C);
+	User_I2C_GeneralPurposeOutput_Init();
 	HAL_Delay(1);
 	USER_I2C_Set_IO();
 	HAL_Delay(1);
@@ -1110,7 +1105,7 @@ HAL_StatusTypeDef User_I2C_ResetBus(void)
 	
 	/* 12. Configure the SCL and SDA I/Os as Alternate function Open-Drain. */
 	HAL_GPIO_DeInit(USER_I2C_GPIO, USER_I2C_SCL_Pin|USER_I2C_SDA_Pin);
-	User_I2C_AlternateFunction_Init(&USER_I2C);
+	User_I2C_AlternateFunction_Init();
 	
 	/* 13. Set SWRST bit in I2Cx_CR1 register. */
 	USER_I2C.Instance->CR1 |=  I2C_CR1_SWRST;

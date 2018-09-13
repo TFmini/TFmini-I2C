@@ -16,7 +16,7 @@ History:
 	V1.0 2018-9-12 wuxiuhua Create C file
 *************************************************/
 
-#include "User_TFminiControl.h"
+#include "User_TFminiConfig.h"
 #include "User_I2C.h"
 
 
@@ -168,7 +168,6 @@ TFmini_StatusTypeDef User_TFmini_ConfigUnit(uint8_t slaveAddr, uint8_t Unit)
 Function: User_TFmini_ConfigDefault
 Description: Config TFmini Unit
 Input:  slaveAddr - tfmini I2C slave address
-		Unit 
 Output: None
 Return: the status of User_TFmini_ConfigUnit
 Others: None
@@ -184,4 +183,48 @@ TFmini_StatusTypeDef User_TFmini_ConfigDefault(uint8_t slaveAddr)
 	return (i2c_status != HAL_OK) ? TFmini_ERROR : TFmini_OK;
 }
 
-
+/*************************************************
+Function: User_TFmini_ReadAllConfig
+Description: Read All Config
+Input:  slaveAddr - tfmini I2C slave address
+Output: None
+Return: None
+Others: Config message
+*************************************************/
+void User_TFmini_ReadAllConfig(uint8_t slaveAddr)
+{
+	HAL_StatusTypeDef status;
+	uint8_t rxbuf[5] = {0};
+	
+	status = User_I2C_ReadFromSlave(slaveAddr, TFmini_InttimeAndMode_RegAddr, TFmini_InttimeAndMode_Bytes, rxbuf);
+	if(status != HAL_OK)
+	{
+		printf("Err: Read Inttime and mode, status=%d\r\n", status);
+		return;
+	}
+	printf("Inttime = %d, Mode=%d\r\n", rxbuf[0], rxbuf[1]);
+	
+	status = User_I2C_ReadFromSlave(slaveAddr, TFmini_RangeModeAndValue_RegAddr, TFmini_RangeModeAndValue_Bytes, rxbuf);
+	if(status != HAL_OK)
+	{
+		printf("Err: Read Range Mode and Value, status = %d\r\n", status);
+		return;
+	}
+	printf("RangeMode = %d, RangeValue = %d\r\n", rxbuf[0], rxbuf[1]|(rxbuf[2] << 8));
+	
+	status = User_I2C_ReadFromSlave(slaveAddr, TFmini_StrengthLowThreshold_RegAddr, TFmini_StrengthLowThreshold_Bytes, rxbuf);
+	if(status != HAL_OK)
+	{
+		printf("Err: Read Strength Low Threshold, status = %d\r\n", status);
+		return;
+	}
+	printf("Strength Low Threshold = %d\r\n", rxbuf[0]|(rxbuf[1] << 8));
+	
+	status = User_I2C_ReadFromSlave(slaveAddr, TFmini_Unit_RegAddr, TFmini_Unit_Bytes, rxbuf);
+	if(status != HAL_OK)
+	{
+		printf("Err: Read Unit, status = %d\r\n", status);
+		return;
+	}
+	printf("Unit = %d\r\n", rxbuf[0]|(rxbuf[1] << 8));
+}
