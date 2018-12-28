@@ -4,3 +4,6 @@ TFmini-I2C_ForSTM32F103Master(HAL)/Drivers/CMSIS/DSP_Lib
 TFmini-I2C_ForSTM32F103Master(HAL)/MDK-ARM/EventRecorderStub.scvd
 TFmini-I2C_ForSTM32F103Master(HAL)/MDK-ARM/STM32_I2CMasterForTFmini.uvguix.Cherry Goh
 TFmini-I2C_ForSTM32F103Master(HAL)/MDK-ARM/STM32_I2CMasterForTFmini
+TFmini-I2C_ForSTM32F103Master(STD-IOSim)/TFmini-I2C_ForSTM32103Master(STD-IOSim)/Output
+*.Cherry Goh
+*.scvd
